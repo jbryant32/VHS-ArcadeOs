@@ -1,0 +1,10 @@
+{
+
+  "WheelArtDir": "D:\\Art\\WheelArt",
+  "ArtRootDir": "D:\\Art",
+  "MamePath": "D:\\Mame",
+  "MameCmd": "d:\\mame\\mame -inipath d:\\mame d:\\mame\\roms\\",
+  "Enviroment": "Debug"
+  
+
+}
