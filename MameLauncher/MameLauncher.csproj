@@ -92,10 +92,15 @@
     <Compile Include="States\MameExited.cs" />
     <Compile Include="States\MameOpened.cs" />
     <Compile Include="States\OpeningFE.cs" />
+    <Compile Include="States\OpenLaunchPad.cs" />
     <Compile Include="States\RestoreFE.cs" />
     <Compile Include="States\Waiting.cs" />
     <Compile Include="Tools\InitDirectories.cs" />
     <Compile Include="Tools\InputHandler.cs" />
+    <Compile Include="Views\ViewFrontEnd.cs" />
+    <Compile Include="Views\ViewLaunchPad.cs" />
+    <Compile Include="Views\WindowController.cs" />
+    <Compile Include="Views\WindowControllerEx.cs" />
     <Compile Include="WindowCloser.cs" />
     <Compile Include="WindowOpener.cs" />
     <Compile Include="WindowSwitching.cs" />

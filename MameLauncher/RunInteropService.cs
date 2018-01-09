@@ -91,7 +91,7 @@ namespace MameLauncher
             DWLP_MSGRESULT = 0x0,
             DWLP_DLGPROC = 0x4
         }
-        public enum WindowSelection { MAME, FrontEnd }
+        public enum WindowSelection { MAME, FrontEnd,LaunchPad }
         enum ShowWindowCommands
         {
             /// <summary>
@@ -180,6 +180,7 @@ namespace MameLauncher
         [DllImport("user32.dll")]
         private static extern bool ShowWindowAsync(IntPtr hWnd, int nCmdShow);
 
+        //creates the desired window style
         public static IntPtr SetWindowLongPtr(HandleRef hWnd, int nIndex, IntPtr dwNewLong)
         {
             if (IntPtr.Size == 8)
@@ -312,7 +313,7 @@ namespace MameLauncher
 
                 MoveWindow(intPtr, 0, 0, 800, 600, true);//change the size of the window
             }
-            ChangeDisplay(800, 600, 32);//change the display size to fit the window
+           // ChangeDisplay(800, 600, 32);//change the display size to fit the window
         }
     }
 }

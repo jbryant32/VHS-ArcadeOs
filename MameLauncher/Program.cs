@@ -12,13 +12,11 @@ namespace MameLauncher
 {
     class Program
     {
-        static string ExitData;
-        static string ErrorData;
-
-
+     
         static void Main(string[] args)
         {
             Console.Title = "Arcade Launcher";
+            RunInteropService.Instance.ChangeDisplay(800, 600, 32);
             StateManager.Instance.Run();
         }
     }

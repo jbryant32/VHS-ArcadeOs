@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MameLauncher.exe" size="23512">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MameLauncher.exe" size="24024">
       <assemblyIdentity name="MameLauncher" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>sfut7mKTZdNZ4+6QraCyYJY7W+blE81RpI3juu4lK64=</dsig:DigestValue>
+        <dsig:DigestValue>KwnYS2eeioIaim4CU7khYd5/8hEWTKzpCjEMkFTdg0Y=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

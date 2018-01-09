@@ -16,10 +16,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
+    <StartWorkingDirectory>\\VHS-PC\Share\Build\Release\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
-    <StartWorkingDirectory>C:\Share\Build\Debug\</StartWorkingDirectory>
+    <StartWorkingDirectory>\\VHS-PC\Share\Build\Debug\</StartWorkingDirectory>
   </PropertyGroup>
 </Project>

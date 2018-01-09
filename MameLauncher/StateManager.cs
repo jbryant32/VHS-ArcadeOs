@@ -1,7 +1,9 @@
 ﻿using MameLauncher.States;
+using MameLauncher.Views;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -19,6 +21,7 @@ namespace MameLauncher
         IState MameOpened;
         IState MameExited;
         IState RestoreFE;
+        IState OpenLaunchPad;
         IState FeExitedMameRunning;
         IState FeExitedMameNotRunning;
         static StateManager _instance;
@@ -35,6 +38,15 @@ namespace MameLauncher
             }
         }
 
+        static List<WindowController> Windows = new List<WindowController>() {
+            { new WindowController("mame",false,IntPtr.Zero) },
+            { new WindowController("FrontEnd",false,IntPtr.Zero) },
+            { new WindowController("LaunchPad",false,IntPtr.Zero)}
+        };
+        WindowController CurrentWindow;
+        WindowController PreviousWindow;
+
+
         public IState CurrentState { get; private set; }
 
         public StateManager()
@@ -49,13 +61,17 @@ namespace MameLauncher
             RestoreFE = new RestoreFE(this);
             FeExitedMameNotRunning = new FeExitedMameNotRunning(this);
             FeExitedMameRunning = new FeExitedMameRunning(this);
-            CurrentState = new OpeningFE(this);
+            OpenLaunchPad = new OpenLaunchPad(this);
+            SetState<OpenLaunchPad>();
+
+
         }
 
         public void SetState<T>()
         {
             if (typeof(T) == typeof(OpeningFE))
             {
+                OpeningFE.Init();
                 CurrentState = OpeningFE;
             }
             if (typeof(T) == typeof(FEOpened))
@@ -95,16 +111,55 @@ namespace MameLauncher
                 GameSelected.Init();
                 CurrentState = GameSelected;
             }
+            if (typeof(T) == typeof(OpenLaunchPad))
+            {
+                OpenLaunchPad.Init();
+                CurrentState = OpenLaunchPad;
+            }
         }
 
+        public void SetActiveWindow(string name)
+        {
+            var WindowToActivate = Windows.Where((wind) => { return wind.Name == name; }).FirstOrDefault();
+            WindowToActivate.Active = true;
+            CurrentWindow = WindowToActivate;
+            if (PreviousWindow != CurrentWindow)
+            {
+                PreviousWindow = CurrentWindow;
+                //deactive all windows that arent now the newly set window
+                foreach (var wind in Windows)
+                {
+                    if (wind.Name != CurrentWindow.Name)
+                    {
+                        wind.Active = false;
+                    }
+                }
+            }
+            CurrentWindow.SetPtr(Process.GetProcessesByName(name).FirstOrDefault().MainWindowHandle);
+            Thread.Sleep(200);
+            CurrentWindow.SetupWindow();
+        }
+        public void AssignWindowPtr(string name, IntPtr Hwnd)
+        {
+
+        }
+
+        void UpdateWindow()
+        {
+           
+        }
 
         public void Run()
         {
-           
+
             do
             {
+                foreach (var wind in Windows)
+                {
+                    wind.Update();
+                }
                 CurrentState.UpdateState();
-               
+
                 Thread.Sleep(500);
             } while (true);
         }
