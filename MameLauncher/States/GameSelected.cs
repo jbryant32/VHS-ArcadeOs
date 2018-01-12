@@ -20,15 +20,7 @@ namespace MameLauncher.States
 
         public void Init()
         {
-            var FilePath = @"C:\FrontEndAppFiles\mameCmd.vhs";
-
-            WaitForFileWriteCompletion();//wait for file to close
-            using (var read = File.OpenText(FilePath))//read the  cmd to be sent to mame from the FE game to be launched
-            {
-                cmd = read.ReadToEnd();
-                Console.WriteLine("Command" + cmd);
-                read.Close();
-            }
+            
 
             OpenMame(cmd);
 
@@ -104,29 +96,6 @@ namespace MameLauncher.States
         }
 
         //Blocks the current thread untill the file has finished writing 
-        void WaitForFileWriteCompletion()
-        {
-            StreamReader fileStream = null;
-            FileInfo fileInfo = new FileInfo(@"C:\FrontEndAppFiles\mameCmd.vhs");
-            do
-            {
-                try
-                {
-                    fileStream = fileInfo.OpenText();//checl
-
-                    Console.WriteLine("File Ready");
-
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("File error: " + ex.Message);
-                    fileStream = null;
-
-                }
-
-            } while (fileStream == null);
-            fileStream.Close();
-        }
+       
     }
 }

@@ -25,7 +25,7 @@ namespace MameLauncher
 
         public void Update()
         {
-           Thread.Sleep(500);
+           
             PreviouseFileWriteTime = CurrentFileWriteTime;
             CurrentFileWriteTime = File.GetLastWriteTime(FileDir);
 

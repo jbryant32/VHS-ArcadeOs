@@ -21,9 +21,12 @@ namespace MameLauncher
         IState MameOpened;
         IState MameExited;
         IState RestoreFE;
-        IState OpenLaunchPad;
+        IState LaunchPadFocused;
         IState FeExitedMameRunning;
         IState FeExitedMameNotRunning;
+        IState Transition;
+
+
         static StateManager _instance;
         public static StateManager Instance
         {
@@ -38,13 +41,14 @@ namespace MameLauncher
             }
         }
 
-        static List<WindowController> Windows = new List<WindowController>() {
-            { new WindowController("mame",false,IntPtr.Zero) },
-            { new WindowController("FrontEnd",false,IntPtr.Zero) },
-            { new WindowController("LaunchPad",false,IntPtr.Zero)}
+        public List<WindowController> Windows = new List<WindowController>() {
+            { new MameWindow("mame",false,IntPtr.Zero) },
+            { new FrontEndWindow("FrontEnd",false,IntPtr.Zero) },
+            { new LaunchWindow("LaunchPad",false,IntPtr.Zero)},
+            { new LoadingWindow("LoadingWindow",false,IntPtr.Zero)},
         };
-        WindowController CurrentWindow;
-        WindowController PreviousWindow;
+        WindowController CurrentActiveWindow;
+        WindowController PreviouAcivesWindow;
 
 
         public IState CurrentState { get; private set; }
@@ -61,12 +65,17 @@ namespace MameLauncher
             RestoreFE = new RestoreFE(this);
             FeExitedMameNotRunning = new FeExitedMameNotRunning(this);
             FeExitedMameRunning = new FeExitedMameRunning(this);
-            OpenLaunchPad = new OpenLaunchPad(this);
-            SetState<OpenLaunchPad>();
-
+            LaunchPadFocused = new LaunchPadFocused(this);
+            Transition = new Transitioning(this);
+            this.SetTransition("LaunchPad");
 
         }
+        public void SetTransition(string TransitioningTo)
+        {
+            this.Transition.Init(TransitioningTo);//start transition
+         
 
+        }
         public void SetState<T>()
         {
             if (typeof(T) == typeof(OpeningFE))
@@ -111,42 +120,47 @@ namespace MameLauncher
                 GameSelected.Init();
                 CurrentState = GameSelected;
             }
-            if (typeof(T) == typeof(OpenLaunchPad))
+            if (typeof(T) == typeof(LaunchPadFocused))
             {
-                OpenLaunchPad.Init();
-                CurrentState = OpenLaunchPad;
+                LaunchPadFocused.Init();
+                CurrentState = LaunchPadFocused;
             }
         }
 
-        public void SetActiveWindow(string name)
+        //gets the request window from the list of windows creates its process if not already created and acitves its window
+        public bool SetActiveWindow(string name)
         {
             var WindowToActivate = Windows.Where((wind) => { return wind.Name == name; }).FirstOrDefault();
-            WindowToActivate.Active = true;
-            CurrentWindow = WindowToActivate;
-            if (PreviousWindow != CurrentWindow)
+
+            WindowToActivate.ActivateWindow();//note there is a loop here that will block the thread untill window is created
+
+            CurrentActiveWindow = WindowToActivate;
+            if (PreviouAcivesWindow != CurrentActiveWindow)
             {
-                PreviousWindow = CurrentWindow;
-                //deactive all windows that arent now the newly set window
+                PreviouAcivesWindow = CurrentActiveWindow;
+                //deactive all windows that arent now the newly set window only one windo active at a time
                 foreach (var wind in Windows)
                 {
-                    if (wind.Name != CurrentWindow.Name)
+                    if (wind.Name != CurrentActiveWindow.Name)
                     {
-                        wind.Active = false;
+                        wind.SetState = false;
                     }
                 }
             }
-            CurrentWindow.SetPtr(Process.GetProcessesByName(name).FirstOrDefault().MainWindowHandle);
             Thread.Sleep(200);
-            CurrentWindow.SetupWindow();
+            return true;
         }
         public void AssignWindowPtr(string name, IntPtr Hwnd)
         {
 
         }
 
-        void UpdateWindow()
+        void UpdateWindows()
         {
-           
+            foreach (var wind in Windows)
+            {
+                wind.Update();
+            }
         }
 
         public void Run()
@@ -154,10 +168,9 @@ namespace MameLauncher
 
             do
             {
-                foreach (var wind in Windows)
-                {
-                    wind.Update();
-                }
+
+                this.UpdateWindows();
+
                 CurrentState.UpdateState();
 
                 Thread.Sleep(500);

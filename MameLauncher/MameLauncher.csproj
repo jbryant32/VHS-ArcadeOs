@@ -76,6 +76,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArcadeEventsHandler.cs" />
     <Compile Include="MyFileWatcher.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,22 +89,22 @@
     <Compile Include="States\FrontEndExited.cs" />
     <Compile Include="States\GameSelected.cs" />
     <Compile Include="States\IState.cs" />
-    <Compile Include="States\LoadingMame.cs" />
     <Compile Include="States\MameExited.cs" />
     <Compile Include="States\MameOpened.cs" />
     <Compile Include="States\OpeningFE.cs" />
-    <Compile Include="States\OpenLaunchPad.cs" />
+    <Compile Include="States\LaunchPadFocused.cs" />
     <Compile Include="States\RestoreFE.cs" />
+    <Compile Include="States\Transitioning.cs" />
     <Compile Include="States\Waiting.cs" />
     <Compile Include="Tools\InitDirectories.cs" />
     <Compile Include="Tools\InputHandler.cs" />
-    <Compile Include="Views\ViewFrontEnd.cs" />
-    <Compile Include="Views\ViewLaunchPad.cs" />
+    <Compile Include="Tools\SpecialHandler.cs" />
+    <Compile Include="Views\FrontEndWindow.cs" />
+    <Compile Include="Views\LaunchWindow.cs" />
+    <Compile Include="Views\LoadingWindow.cs" />
+    <Compile Include="Views\MameWindow.cs" />
     <Compile Include="Views\WindowController.cs" />
     <Compile Include="Views\WindowControllerEx.cs" />
-    <Compile Include="WindowCloser.cs" />
-    <Compile Include="WindowOpener.cs" />
-    <Compile Include="WindowSwitching.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

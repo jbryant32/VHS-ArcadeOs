@@ -16,13 +16,65 @@ namespace MameLauncher.States
         bool FileReady { get; set; }
         DateTime CurrentFileWriteTime;
         DateTime PreviouseFileWriteTime;
-        event EventHandler MameCmdFileChanged;
         public Waiting(StateManager stateM)
         {
             StateManager = stateM;
-            MameCmdFileChanged += OnMameCmdFileChanged;
-
+            ArcadeEventsHandler.Instance.MameClosed += Instance_MameClosed;
+            ArcadeEventsHandler.Instance.GameSelected += Instance_GameSelected;
+            ArcadeEventsHandler.Instance.FrontEndCrashedMameRunning += Instance_FrontEndExitedMameRunning;
+            ArcadeEventsHandler.Instance.FrontEndCrashedNoMameRunning += Instance_FrontEndExitedNoMameRunning;
+            ArcadeEventsHandler.Instance.FrontEndExitedIntentional += Instance_FrontEndExitedIntentional;
+            ArcadeEventsHandler.Instance.StartAracde += Instance_StartAracde;
         }
+
+        private void Instance_StartAracde(object sender, EventArgs e)
+        {
+            Console.WriteLine("Start Arcade");
+            StateManager.SetTransition("FrontEnd");
+        }
+
+        private void Instance_FrontEndExitedIntentional(object sender, EventArgs e)
+        {
+            Console.WriteLine("FrontEnd Closed Intentional");
+        }
+
+        private void Instance_FrontEndExitedNoMameRunning(object sender, EventArgs e)
+        {
+            Console.WriteLine("FrontEnd Closed Mame Not Running....Shall We Try Again????");
+        }
+
+        private void Instance_FrontEndExitedMameRunning(object sender, EventArgs e)
+        {
+            Console.WriteLine("FrontEnd Closed While Mame Running :(");
+        }
+
+        private void Instance_GameSelected(object sender, EventArgs e)
+        {
+            StateManager.SetTransition("mame");
+            Console.WriteLine("Game Selected!");
+        }
+
+        private void Instance_MameClosed(object sender, EventArgs e)
+        {
+            Console.WriteLine("mame closed!");
+            try
+            {
+                var Mproc = Process.GetProcessesByName("mame").ToList();
+                StateManager.SetTransition("FontEnd");
+                foreach (var proc in Mproc)
+                {
+                  //  proc.Kill();
+                }
+                Console.WriteLine("why is mame still open  ? you said you quit ??");
+            }
+            catch (Exception)
+            {
+
+
+            }
+            StateManager.SetTransition("FrontEnd");
+        }
+
         public void Init()
         { //iniitalize the file watcher current state
             var Path = @"C:\FrontEndAppFiles\mameCmd.vhs";
@@ -34,104 +86,15 @@ namespace MameLauncher.States
         {
             throw new NotImplementedException();
         }
-        //this watches the mameCmd file that gets update once the user selects the game they want to launch
-        private void OnMameCmdFileChanged(object sender, EventArgs e)
-        {
-            StateManager.SetState<GameSelected>();
-            Console.WriteLine("Game Selected");
-        }
-
-
-
-
-        bool FileChanged()
-        {
-
-            Thread.Sleep(500);
-            var Path = @"C:\FrontEndAppFiles\mameCmd.vhs";
-            PreviouseFileWriteTime = CurrentFileWriteTime;
-            CurrentFileWriteTime = File.GetLastWriteTime(Path);
-            if (PreviouseFileWriteTime != CurrentFileWriteTime)
-            {
-                PreviouseFileWriteTime = CurrentFileWriteTime;
-                Console.WriteLine("file change Time: " + CurrentFileWriteTime.ToLongTimeString());
-
-                if (MameCmdFileChanged != null)
-                    MameCmdFileChanged(this, new EventArgs());
-
-                return true;
-            }
-            return false;
-        }
-
-        //This method checks if the file is being written to if not it opens the file and reads the command file
-        void CheckFileReady()
-        {
-            StreamReader fileStream = null;
-            FileInfo fileInfo = new FileInfo(@"C:\FrontEndAppFiles\mameCmd.vhs");
-            do
-            {
-                try
-                {
-                    fileStream = fileInfo.OpenText();//checl
-
-                    Console.WriteLine("File Ready");
-
-                }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("File error: " + ex.Message);
-                    fileStream = null;
-
-                }
-
-            } while (fileStream == null);
-            fileStream.Close();
-        }
-
-
-        //watch for file change if so new game launch requested by front end
-
-        //checks the frontends states and sets the appropriate state response
-        void HandleFECrash()
-        {
-            var Mproc = Process.GetProcessesByName("mame");
-            var FProc = Process.GetProcessesByName("FrontEnd");
-            if (Mproc.Count() == 1)
-            {
-                if (FProc.Count() == 0)
-                {
-                    Console.WriteLine("I think Fe Crashed !");
-
-                    StateManager.SetState<FeExitedMameRunning>();
-                    return;
-                }
-            }
-
-            if (Mproc.Count() == 0)
-            {
-                if (FProc.Count() == 0)
-                {
-                    Console.WriteLine("I think Fe Crashed!");
-                    StateManager.SetState<FeExitedMameNotRunning>();
-                }
-            }
-
-        }
-        void HandleFEFocus()
-        {
-            RunInteropService.Instance.GetCurrentDisplay();
-        }
+       
         public void UpdateState()
         {
+            ArcadeEventsHandler.Instance.Update();
 
-            FileChanged();
-            HandleFECrash();
-            Console.WriteLine("Waiting....");
+            Console.WriteLine("Waiting Room....");
             Thread.Sleep(500);
         }
 
-         
+
     }
 }
