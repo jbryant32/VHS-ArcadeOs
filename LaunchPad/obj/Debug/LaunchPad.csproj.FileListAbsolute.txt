@@ -16,3 +16,15 @@ C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\LaunchPad.pdb
 \\VHS-PC\Share\BuildLaunchPad\bin\Debug\LaunchPad.exe
 \\VHS-PC\Share\BuildLaunchPad\bin\Debug\LaunchPad.pdb
 C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\App.baml
+\\Vhs_arcadeos\vhs\LaunchPad\LaunchPad.exe
+\\Vhs_arcadeos\vhs\LaunchPad\LaunchPad.pdb
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\ControlOptions.g.cs
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\ControlsDrivers.g.cs
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\Home.g.cs
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\ControlOptions.baml
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\ControlsDrivers.baml
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\Views\Home.baml
+\\VHS-PC\OS_AppFiles\VHSLaunchPad\LaunchPad.exe
+\\VHS-PC\OS_AppFiles\VHSLaunchPad\LaunchPad.pdb
+C:\Users\jbryant64\source\repos\FrontEnd\LaunchPad\obj\Debug\LaunchPad.csprojResolveAssemblyReference.cache

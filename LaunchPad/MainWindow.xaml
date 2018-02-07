@@ -3,28 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LaunchPad"
+        xmlns:viewModels="clr-namespace:LaunchPad.ViewModel"
+        xmlns:views="clr-namespace:LaunchPad.Views"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="600">
-    <Grid>
+        Title="VHS_ArcadeOS" Height="600" Width="800"
+ Left="0"
+        Top="0"
+        BorderThickness="0" WindowStyle="None">
+    <Window.Resources>
+        <DataTemplate x:Name="driversViewTemplate" DataType="{x:Type viewModels:ViewModelsDrivers}">
+            <views:ControlsDrivers DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="homeViewTemplate" DataType="{x:Type viewModels:ViewModelHome }">
+            <views:Home DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="optionsViewTemplate" DataType="{x:Type viewModels:ViewModelOptions }">
+            <views:ControlOptions DataContext="{Binding}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid x:Name="LayoutRoot">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350px"/>
-            <ColumnDefinition Width="300px"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Name="StackPanelLaunchPadControls" Orientation="Vertical" Grid.Column="0">
-            <Button Name="ButtonStartArcade" Margin="0 50 0 0" Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="StartArcade_Click" >
+            <Button Name="ButtonHomeArcade" Margin="0 50 0 0" Height="100" Background="White" BorderThickness="0"  BorderBrush="White"   >
+                <TextBlock FontFamily="{StaticResource BadMofo}" FontStyle="Normal" FontSize="24"  >Home</TextBlock>
+            </Button>
+            <Button Name="ButtonStartArcade" Margin="0 50 0 0" Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="StartArcade_Click"  >
                 <TextBlock FontFamily="{StaticResource BadMofo}" FontStyle="Normal" FontSize="24"  >Start Arcade Cab</TextBlock>
             </Button>
-            <Button Name="ButtonConfigureArcade" Margin="0 50 0 0" Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="StartArcade_Click" >
-                <TextBlock FontFamily="{StaticResource BadMofo}" FontStyle="Normal" FontSize="24"  >Configursse Cab Settings</TextBlock>
+            <Button Name="ButtonConfigureArcade" Margin="0 50 0 0" Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="ButtonConfigureArcade_Click" >
+                <TextBlock FontFamily="{StaticResource BadMofo}" FontStyle="Normal" FontSize="24"  >Configure Cab Settings</TextBlock>
             </Button>
-            <Button Name="ButtonShutDownArcade" Margin="0 50 0 0"   Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="StartArcade_Click" >
+            <Button Name="ButtonShutDownArcade" Margin="0 50 0 0"   Height="100" Background="White" BorderThickness="0"  BorderBrush="White" Click="ButtonShutDownArcade_Click" >
                 <TextBlock FontFamily="{StaticResource BadMofo}" FontStyle="Normal" FontSize="24"  >Shut Down Arcade</TextBlock>
             </Button>
         </StackPanel>
-        <StackPanel Grid.Column="1"  Orientation="Vertical" ClipToBounds="True">
-            <Image  Source="/Images/CAB.jpg"  Margin="-150 100 -100 0"></Image>
-        </StackPanel>
-       
+        <ContentControl Grid.Column="1"   Content="{Binding}"></ContentControl>
+
     </Grid>
 </Window>

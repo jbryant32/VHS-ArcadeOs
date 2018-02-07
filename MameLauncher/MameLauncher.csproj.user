@@ -21,6 +21,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
     <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
-    <StartWorkingDirectory>\\VHS-PC\Share\Build\Debug\</StartWorkingDirectory>
+    <StartWorkingDirectory>\\VHS-PC\OS_AppFiles\VHSLaunchPad\</StartWorkingDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalDebug|AnyCPU'">
+    <StartWorkingDirectory>C:\OS_AppFiles\VHSArcadeOS\</StartWorkingDirectory>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+    <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
   </PropertyGroup>
 </Project>

@@ -7,14 +7,14 @@
     <framework targetVersion="4.6.1" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="MameLauncher.exe.manifest" size="8921">
+    <dependentAssembly dependencyType="install" codebase="MameLauncher.exe.manifest" size="10243">
       <assemblyIdentity name="MameLauncher.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>/Us3ozwxeVtYI8rvP5u0PoRfoY3nG1r5VozTyBIcDxc=</dsig:DigestValue>
+        <dsig:DigestValue>kfAaH1LavliDDUy3xU8Sp8p0/fiAEZGqPmMAsVnePJA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

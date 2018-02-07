@@ -8,25 +8,16 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ArcadeOScfg;
+using System.Runtime.InteropServices;
 
 namespace MameLauncher
 {
     public class StateManager
     {
-        IState FeExited;
-        IState OpeningFE;
-        IState FEOpened;
         IState Waiting;
-        IState GameSelected;
-        IState MameOpened;
-        IState MameExited;
-        IState RestoreFE;
-        IState LaunchPadFocused;
-        IState FeExitedMameRunning;
-        IState FeExitedMameNotRunning;
         IState Transition;
-
-
+        public static Cfg AppConfig;
         static StateManager _instance;
         public static StateManager Instance
         {
@@ -55,17 +46,16 @@ namespace MameLauncher
 
         public StateManager()
         {
-            OpeningFE = new OpeningFE(this);
-            FeExited = new FrontEndExited(this);
-            FEOpened = new FEOpened(this);
+            Windows = new List<WindowController>() {
+            { new MameWindow("mame",false,IntPtr.Zero) },
+            { new FrontEndWindow("FrontEnd",false,IntPtr.Zero) },
+            { new LaunchWindow("LaunchPad",false,IntPtr.Zero)},
+            { new LoadingWindow("LoadingWindow",false,IntPtr.Zero)},
+        };
+            AppConfig = Config.GetCfg();
             Waiting = new Waiting(this);
-            GameSelected = new GameSelected(this);
-            MameExited = new MameExited(this);
-            MameOpened = new MameOpened(this);
-            RestoreFE = new RestoreFE(this);
-            FeExitedMameNotRunning = new FeExitedMameNotRunning(this);
-            FeExitedMameRunning = new FeExitedMameRunning(this);
-            LaunchPadFocused = new LaunchPadFocused(this);
+
+
             Transition = new Transitioning(this);
             this.SetTransition("LaunchPad");
 
@@ -78,52 +68,18 @@ namespace MameLauncher
         }
         public void SetState<T>()
         {
-            if (typeof(T) == typeof(OpeningFE))
-            {
-                OpeningFE.Init();
-                CurrentState = OpeningFE;
-            }
-            if (typeof(T) == typeof(FEOpened))
-            {
-                CurrentState = FEOpened;
-            }
+            
             if (typeof(T) == typeof(Waiting))
             {
                 Waiting.Init();
-                CurrentState = Waiting;
+                CurrentState = this.Waiting;
 
             }
-            if (typeof(T) == typeof(MameOpened))
+            if (typeof(T) == typeof(Transitioning))
             {
-                CurrentState = MameOpened;
-            }
-            if (typeof(T) == typeof(MameExited))
-            {
-                CurrentState = MameExited;
-            }
-            if (typeof(T) == typeof(RestoreFE))
-            {
-                CurrentState = RestoreFE;
-            }
+                Waiting.Init();
+                CurrentState = this.Transition;
 
-            if (typeof(T) == typeof(FeExitedMameRunning))
-            {
-                CurrentState = FeExitedMameRunning;
-            }
-
-            if (typeof(T) == typeof(FeExitedMameNotRunning))
-            {
-                CurrentState = FeExitedMameNotRunning;
-            }
-            if (typeof(T) == typeof(GameSelected))
-            {
-                GameSelected.Init();
-                CurrentState = GameSelected;
-            }
-            if (typeof(T) == typeof(LaunchPadFocused))
-            {
-                LaunchPadFocused.Init();
-                CurrentState = LaunchPadFocused;
             }
         }
 
@@ -162,13 +118,13 @@ namespace MameLauncher
                 wind.Update();
             }
         }
-
+       
         public void Run()
         {
 
             do
             {
-
+                
                 this.UpdateWindows();
 
                 CurrentState.UpdateState();

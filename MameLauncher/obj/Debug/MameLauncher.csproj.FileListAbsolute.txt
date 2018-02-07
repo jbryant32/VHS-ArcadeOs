@@ -30,4 +30,9 @@ C:\Users\jbryant64\source\repos\FrontEnd\MameLauncher\obj\Debug\MameLauncher.exe
 \\VHS-PC\Share\Build\Debug\MameLauncher.application
 \\VHS-PC\Share\Build\Debug\MameLauncher.exe
 \\VHS-PC\Share\Build\Debug\MameLauncher.pdb
+\\VHS-PC\OS_AppFiles\VHSArcadeOS\MameLauncher.exe.config
+\\VHS-PC\OS_AppFiles\VHSArcadeOS\MameLauncher.exe.manifest
+\\VHS-PC\OS_AppFiles\VHSArcadeOS\MameLauncher.application
+\\VHS-PC\OS_AppFiles\VHSArcadeOS\MameLauncher.exe
+\\VHS-PC\OS_AppFiles\VHSArcadeOS\MameLauncher.pdb
 C:\Users\jbryant64\source\repos\FrontEnd\MameLauncher\obj\Debug\MameLauncher.csprojResolveAssemblyReference.cache

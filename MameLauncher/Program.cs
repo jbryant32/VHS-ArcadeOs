@@ -12,14 +12,26 @@ namespace MameLauncher
 {
     class Program
     {
-     
+        
         static void Main(string[] args)
         {
+#if DEBUG || RELEASE
+
+              //kills of explorer on loading 
+            var Eproc = Process.GetProcessesByName("explorer").FirstOrDefault();
+            if (Eproc != null)
+            {
+                Eproc.Kill();
+            }
+            RunInteropService.Instance.ChangeDisplay(800, 600, 32);
+#endif
+           
             Console.Title = "Arcade Launcher";
-           RunInteropService.Instance.ChangeDisplay(800, 600, 32);
-           StateManager.Instance.Run();
-          
+            Thread.Sleep(10000);
+            StateManager.Instance.Run();
+
         }
-        
+
     }
+
 }

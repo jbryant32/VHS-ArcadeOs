@@ -30,8 +30,8 @@ namespace MameLauncher
                 return _instance;
             }
         }
-        private string MameCmdFilePath { get { return @"C:\FrontEndAppFiles\mameCmd.vhs"; } }
-        private string LauchFilePath { get { return @"C:\FrontEndAppFiles\Shell.vhs"; } }
+        private string MameCmdFilePath { get { return @"C:\OScfg\FrontEndAppFiles\mameCmd.vhs"; } }
+        private string LauchFilePath { get { return @"C:\OScfg\FrontEndAppFiles\Shell.vhs"; } }
         private MyFileWatcher WatchMameCmdFile;
         private MyFileWatcher WatchLaunchFile;
         public event EventHandler MameClosed;

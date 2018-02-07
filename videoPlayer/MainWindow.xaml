@@ -1,0 +1,134 @@
+﻿<Window x:Class="videoPlayer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:videoPlayer"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Left="0"
+        Top="0"
+        Width="800"
+        Height="600"
+        ResizeMode="NoResize"
+        BorderThickness="0"
+        WindowStyle="None" 
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True" 
+        Cursor="None"    
+         >
+
+    <Grid >
+
+
+
+
+        <Image x:Name="ImageBackGround" Source=".\Content\aof3.png" Stretch="Fill"    ></Image>
+
+        <Image   x:Name="ImageFlyer" Source=".\Content\aof2.PNG"  MinWidth="300" Width="300" MinHeight="500" Height="500" Margin="399,-5,1,5">
+
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="5"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+
+
+            </Image.RenderTransform>
+
+        </Image>
+
+        <Viewport3D Margin="0">
+            <ModelVisual3D>
+                <ModelVisual3D.Content>
+
+                    <Model3DGroup>
+                        <!-- Lights -->
+                        <AmbientLight Color="White" />
+                        <!--The Marquee-->
+                        <GeometryModel3D  >
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D
+                            Positions="-1.125,-1.415,0 1.125,-1.415,0 1.125,1.415,0 -1.125,1.415,0"
+                            TriangleIndices="0,1,2 2,3,0"
+                            TextureCoordinates="0,1 1,1 1,0 0,0" >
+                                </MeshGeometry3D>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush x:Name="MarqueeImageBrush" ImageSource=".\Content\3wonders.PNG"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Transform>
+                                <Transform3DGroup>
+                                    <RotateTransform3D >
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0" Angle="12" />
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <ScaleTransform3D ScaleY="0.15" ScaleX="0.50" ></ScaleTransform3D>
+                                    <TranslateTransform3D OffsetX="-1.1" OffsetY="1"></TranslateTransform3D>
+                                </Transform3DGroup>
+                            </GeometryModel3D.Transform>
+
+                        </GeometryModel3D>
+                        <!-- The Video -->
+                        <GeometryModel3D x:Name="VideoModel">
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D
+                            Positions="-1.125,-1.415,0 1.125,-1.415,0 1.125,1.415,0 -1.125,1.415,0"
+                            TriangleIndices="0,1,2 2,3,0"
+                            TextureCoordinates="0,1 1,1 1,0 0,0" >
+                                </MeshGeometry3D>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <!--<ImageBrush ImageSource=".\Content\3wonders.PNG"/>-->
+                                        <VisualBrush>
+                                            <VisualBrush.Visual>
+                                                <MediaElement Name="VideoPLayer" LoadedBehavior="Play" UnloadedBehavior="Manual" >
+                                                </MediaElement>
+                                            </VisualBrush.Visual>
+                                        </VisualBrush>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                            <GeometryModel3D.Transform>
+
+                                <Transform3DGroup>
+                                    <RotateTransform3D >
+                                        <RotateTransform3D.Rotation>
+                                            <AxisAngleRotation3D Axis="0,1,0.3" Angle="22" />
+
+                                        </RotateTransform3D.Rotation>
+                                    </RotateTransform3D>
+                                    <ScaleTransform3D ScaleY="0.35" ScaleX="0.50" ></ScaleTransform3D>
+                                    <TranslateTransform3D OffsetX="-1" OffsetY="0.28"></TranslateTransform3D>
+                                </Transform3DGroup>
+                            </GeometryModel3D.Transform>
+
+                        </GeometryModel3D>
+                    </Model3DGroup>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+
+            <Viewport3D.Camera>
+                <PerspectiveCamera
+            Position = "0, 0, 3.5"
+            LookDirection = "0, 0, -1"
+            UpDirection = "0, 1, 0"
+            FieldOfView = "60">
+                </PerspectiveCamera>
+            </Viewport3D.Camera>
+        </Viewport3D>
+
+        <Image x:Name="ImageLeft"></Image>
+        <Image x:Name="ImageCabinent" HorizontalAlignment="Left" VerticalAlignment="Top" MinHeight="500" Source=".\Content\cab_body.png"></Image>
+        <Image x:Name="ImageManufactuer" Source=".\Content\Konami.png" Width="300" Height="150" Margin="460,450,40,0"></Image>
+    </Grid>
+</Window>

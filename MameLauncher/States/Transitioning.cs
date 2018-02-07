@@ -21,17 +21,20 @@ namespace MameLauncher.States
 
         public void Init()
         {
-            throw new NotImplementedException();
+           
         }
 
         public void Init(string Value)
         {
-            stateManager.SetState<Transitioning>();
             Console.WriteLine($"Transitioning to {Value}");
             TransTo = Value;
+
+            stateManager.SetState<Transitioning>();
+            
+          
             //activate the loading screen until the other tranistion to app is ready
             var Ready = stateManager.SetActiveWindow("LoadingWindow");
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             if (TransTo == "FrontEnd")
             {
                 WindowReady = stateManager.SetActiveWindow("FrontEnd");

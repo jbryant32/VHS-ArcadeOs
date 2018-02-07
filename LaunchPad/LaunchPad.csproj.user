@@ -2,8 +2,8 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
-    <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
-    <StartWorkingDirectory>\\VHS-PC\Share\BuildLaunchPad\Debug\</StartWorkingDirectory>
+    <RemoteDebugMachine>VHS_ARCADEOS:4022</RemoteDebugMachine>
+    <StartWorkingDirectory>\\VHS-PC\OS_AppFiles\VHSLaunchPad\</StartWorkingDirectory>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <RemoteDebugEnabled>true</RemoteDebugEnabled>
@@ -19,5 +19,10 @@
     <ErrorReportUrlHistory />
     <FallbackCulture>en-US</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalDebug|AnyCPU'">
+    <StartWorkingDirectory>C:\OS_AppFiles\VHSLaunchPad\</StartWorkingDirectory>
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+    <RemoteDebugMachine>VHS-PC:4022</RemoteDebugMachine>
   </PropertyGroup>
 </Project>

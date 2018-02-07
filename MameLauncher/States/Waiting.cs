@@ -60,11 +60,13 @@ namespace MameLauncher.States
             try
             {
                 var Mproc = Process.GetProcessesByName("mame").ToList();
-                StateManager.SetTransition("FontEnd");
+                
+               
                 foreach (var proc in Mproc)
                 {
-                  //  proc.Kill();
+                    proc.Kill();
                 }
+                StateManager.SetTransition("FontEnd");
                 Console.WriteLine("why is mame still open  ? you said you quit ??");
             }
             catch (Exception)
@@ -77,7 +79,7 @@ namespace MameLauncher.States
 
         public void Init()
         { //iniitalize the file watcher current state
-            var Path = @"C:\FrontEndAppFiles\mameCmd.vhs";
+            var Path = @"C:\OScfg\FrontEndAppFiles\mameCmd.vhs";
             PreviouseFileWriteTime = File.GetLastWriteTime(Path);
             CurrentFileWriteTime = File.GetLastWriteTime(Path);
         }

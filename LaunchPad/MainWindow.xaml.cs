@@ -15,6 +15,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using LaunchPad.ViewModel;
+using System.Diagnostics;
+using LaunchPad.UIHook;
 
 namespace LaunchPad
 {
@@ -24,29 +27,49 @@ namespace LaunchPad
     public partial class MainWindow : Window
     {
         ButtonAutomationPeer AutomationPeer;
+      
         public MainWindow()
         {
             InitializeComponent();
             AutomationPeer = new ButtonAutomationPeer(ButtonStartArcade);
-            this.KeyDown += MainWindow_KeyDown;
+            this.KeyUp += MainWindow_KeyDown;
+
+            this.Loaded += MainWindow_Loaded;
+            this.Cursor = Cursors.None;
         }
+      
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            WindowUIHook.Attach(this, StackPanelLaunchPadControls);
+        }
+
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Up)
-            {
-               
-            }
-           
+             
         }
 
         private void StartArcade_Click(object sender, RoutedEventArgs e)
         {
-            var file = File.Open(@"C:\FrontEndAppFiles\Shell.vhs", FileMode.Open);
+            var file = File.Open(@"C:\OScfg\FrontEndAppFiles\Shell.vhs", FileMode.Open);
             StreamWriter writer = new StreamWriter(file);
             writer.WriteLine("true");
             writer.Close();
             file.Close();
+        }
+
+        private void ButtonConfigureArcade_Click(object sender, RoutedEventArgs e)
+        {
+
+            this.DataContext = new ViewModelOptions();
+        }
+
+        private void ButtonShutDownArcade_Click(object sender, RoutedEventArgs e)
+        {
+            var startInfo = new ProcessStartInfo("cmd", "/c shutdown /f /p");
+            startInfo.CreateNoWindow = true;
+            startInfo.UseShellExecute = false;
+            var proc = Process.Start(startInfo);
         }
     }
 }

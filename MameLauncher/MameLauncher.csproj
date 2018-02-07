@@ -34,7 +34,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>\\VHS-PC\Share\Build\Debug\</OutputPath>
+    <OutputPath>\\VHS-PC\OS_AppFiles\VHSArcadeOS\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -62,8 +62,27 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'LocalDebug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\..\..\..\OS_AppFiles\VHSArcadeOS\</OutputPath>
+    <DefineConstants>TRACE;LOCALDEBUG</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ArcadeOScfg">
+      <HintPath>D:\CodeBackup\MyDLLS\ArcadeOScfg\ArcadeOScfg.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows" />
@@ -83,20 +102,9 @@
     <Compile Include="RunInteropService.cs" />
     <Compile Include="RunInteropServiceEx.cs" />
     <Compile Include="StateManager.cs" />
-    <Compile Include="States\FeExitedMameNotRunning.cs" />
-    <Compile Include="States\FeExitedMameRunning.cs" />
-    <Compile Include="States\FEOpened.cs" />
-    <Compile Include="States\FrontEndExited.cs" />
-    <Compile Include="States\GameSelected.cs" />
     <Compile Include="States\IState.cs" />
-    <Compile Include="States\MameExited.cs" />
-    <Compile Include="States\MameOpened.cs" />
-    <Compile Include="States\OpeningFE.cs" />
-    <Compile Include="States\LaunchPadFocused.cs" />
-    <Compile Include="States\RestoreFE.cs" />
     <Compile Include="States\Transitioning.cs" />
     <Compile Include="States\Waiting.cs" />
-    <Compile Include="Tools\InitDirectories.cs" />
     <Compile Include="Tools\InputHandler.cs" />
     <Compile Include="Tools\SpecialHandler.cs" />
     <Compile Include="Views\FrontEndWindow.cs" />

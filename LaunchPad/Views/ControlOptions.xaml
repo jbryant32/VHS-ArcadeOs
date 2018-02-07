@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="LaunchPad.Views.ControlOptions"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LaunchPad.Views"
+             mc:Ignorable="d" 
+            >
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button x:Name="ButtonSystemInfo" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderThickness="0" Margin="0 50 0 0" Width="200" FontSize="24" FontFamily="{StaticResource BadMofo}" >System Info</Button>
+            <Button x:Name="ButtonInstallDrivers" Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderThickness="0" Margin="0 50 0 0" Width="200" FontSize="24" FontFamily="{StaticResource BadMofo}" Click="ButtonInstallDrivers_Click" >Install Drivers</Button>
+            <Button Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderThickness="0" Margin="0 50 0 0" Width="200"   FontSize="24" FontFamily="{StaticResource BadMofo}" >Adjust Display</Button>
+            <Button Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderThickness="0" Margin="0 50 0 0" Width="200" FontSize="24" FontFamily="{StaticResource BadMofo}" >Adjust Volume</Button>
+            <Button Height="100" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderThickness="0" Margin="0 50 0 0" Width="200" FontSize="24" FontFamily="{StaticResource BadMofo}" >Update Software</Button>
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

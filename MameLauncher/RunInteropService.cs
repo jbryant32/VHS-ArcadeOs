@@ -290,10 +290,15 @@ namespace MameLauncher
                     break;
             }
         }
+        public void SetWindowFocus(IntPtr hwn)
+        {
+            SetFocus(hwn);
+        }
         public bool BlockUserInPut(bool block)
         {
-           return BlockInput(block);
+            return BlockInput(block);
         }
+      
 
         public unsafe void SetFullScreen()
         {

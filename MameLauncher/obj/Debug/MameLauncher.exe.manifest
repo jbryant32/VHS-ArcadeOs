@@ -42,14 +42,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MameLauncher.exe" size="34776">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ArcadeOScfg.dll" size="5632">
+      <assemblyIdentity name="ArcadeOScfg" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>0VSPrY0A8b3oJev4u6pHXKLJGDH4pJXUzu3NevbmOTY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="MameLauncher.exe" size="29656">
       <assemblyIdentity name="MameLauncher" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>ta0JaQeZJlQVpyKAbtNH9LYhw8mmaLo1KePT9v8MIMg=</dsig:DigestValue>
+        <dsig:DigestValue>UyjfQzTLKZmi02HNnt85sxXy7Sh6sXOsPw0yzOyR3uU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -62,6 +74,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
         <dsig:DigestValue>cPOK/6b4cO5TBc+lyAL3E5Kr1o/a3fZEgQtlf7yOCEI=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Newtonsoft.Json.dll" size="526336">
+      <assemblyIdentity name="Newtonsoft.Json" version="9.0.0.0" publicKeyToken="30AD4FE6B2A6AEED" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>V14w+Y5OpCyeUW7ci7sprYtQsXOj5rNrW6OeEzzOlAY=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -149,13 +173,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="MameLauncher.exe.config" size="546">
+  <file name="MameLauncher.exe.config" size="873">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>Z8Glfq1LKRWsblEmQe764Fv7x1SOribBbp5pmYshbnU=</dsig:DigestValue>
+      <dsig:DigestValue>lrwKmB5VOzotUd7TiRb3+K84yGDknxG+HrVxUp38hYs=</dsig:DigestValue>
     </hash>
   </file>
 </asmv1:assembly>

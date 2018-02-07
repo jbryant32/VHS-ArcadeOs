@@ -16,10 +16,19 @@ namespace MameLauncher.Views
 
         public override void ActivateWindow()
         {
+            // start the loadwindow process this is used to cover over the workings in the background like window setups
             if (Process.GetProcessesByName("LoadingWindow").FirstOrDefault() == null)
-            { var proc = Process.Start(@"C:\Share\BuildLoading\Release\LoadingWindow.exe"); }
-           
-                base.ActivateWindow();
+            {
+#if DEBUG || RELEASE
+                var proc = Process.Start(@"C:\OS_AppFiles\VHSLoadingScreen\LoadingWindow.exe");
+
+#endif
+#if LOCALDEBUG
+                var proc = Process.Start(@"C:\OS_AppFiles\VHSLoadingScreen\LoadingWindow.exe");
+#endif
+            }
+
+            base.ActivateWindow();
         }
     }
 }

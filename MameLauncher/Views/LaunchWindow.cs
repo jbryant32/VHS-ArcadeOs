@@ -15,10 +15,19 @@ namespace MameLauncher.Views
 
         public override void ActivateWindow()
         {
+            var Lproc = Process.GetProcessesByName("LaunchPad").ToList();
+            if (Lproc != null)
+            {
+                foreach (var proc in Lproc)
+                {
+                    proc.Kill();
+                }
+            }
+            //start the launchpad process the base activateWindow will handle the rest
             if (Process.GetProcessesByName("LaunchPad").FirstOrDefault() == null)
             {
-                var proc = Process.Start(@"C:\Share\BuildLaunchPad\bin\Debug\LaunchPad.exe");
-                
+                var proc = Process.Start(@"C:\OS_AppFiles\VHSLaunchPad\LaunchPad.exe");
+
             }
             base.ActivateWindow();
         }

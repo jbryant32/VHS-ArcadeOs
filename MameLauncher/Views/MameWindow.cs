@@ -7,80 +7,36 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-
+using ArcadeOScfg;
 namespace MameLauncher.Views
 {
     public class MameWindow : WindowController
     {
+        Cfg Configs;
         public MameWindow(string Name, bool Active, IntPtr hwn) : base(Name, Active, hwn)
         {
+            Configs = StateManager.AppConfig;
         }
 
-        void CreateProc()
-        {
-            string Executable = @"c:\mame\mame.exe";
-            try
-            {
-                //wrapped inside a try because mame might open and then crash if no game present
-                do
-                {
-                    Console.Clear();
-                    Console.WriteLine("mame openinig");
-                } while (MameLaunchSetupAndRun().MainWindowHandle == IntPtr.Zero);
-            }
-            catch (Exception)
-            {
-
-                Console.WriteLine("No gAME !");
-            }
-
-            var Mproc = Process.GetProcessesByName("mame").FirstOrDefault();
-
-
-            if (Mproc != null)//just incase it crashes or somethin hwn is not null
-                Hwn = Process.GetProcessesByName("mame").FirstOrDefault().MainWindowHandle;
-
-            else
-                Hwn = IntPtr.Zero;
-
-            var proc = Process.GetProcessesByName("mame").FirstOrDefault();
-            if (proc == null)  // if process not already running do this 
-            {
-                var Fproc = Process.Start(Executable);
-
-                do
-                {
-                    //wait for proc to create
-                    Console.Clear();
-                    Thread.Sleep(100);
-                    Console.WriteLine("Opening Mame....");
-                } while (Process.GetProcessesByName("mame").FirstOrDefault() == null);
-
-                do
-                {
-                    //wait for Window Handle to be Created
-                    Console.Clear();
-                    Thread.Sleep(100);
-                    Console.WriteLine($"Opening  Mame....");
-                } while (Process.GetProcessesByName("mame").FirstOrDefault().MainWindowHandle == IntPtr.Zero);//wait for window creation
-
-                Hwn = Fproc.MainWindowHandle;
-            }
-            else
-            {//process already running thats a problem kill that mofo
-                Console.WriteLine("There can be only one ....mame running");
-                Process.GetProcessesByName("mame").FirstOrDefault().Kill();
-                Hwn = IntPtr.Zero;
-            }
-        }
+      
 
         //create the process
         public override void ActivateWindow()
         {
-            //CreateProc();
+            var FeProc = Process.GetProcessesByName("FrontEnd").FirstOrDefault();
+            var VpProc = Process.GetProcessesByName("videoPlayer").FirstOrDefault();
+            if (FeProc!=null)
+            {
+                FeProc.Kill();
+            }
+            if (VpProc != null)
+            {
+                VpProc.Kill();
+            }
+
             ProcessStartInfo processStart = new ProcessStartInfo("cmd");
-            processStart.WorkingDirectory = @"c:\mame";
-            processStart.Arguments = "/C mame dstlk";
+            processStart.WorkingDirectory = @"c:\Emulators\mame";
+            processStart.Arguments = $"/C mame {GetMameCmd()}";
             Process.Start(processStart);
             base.ActivateWindow();
         }
@@ -89,13 +45,12 @@ namespace MameLauncher.Views
 
         string GetMameCmd()
         {
-            var FilePath = @"C:\FrontEndAppFiles\mameCmd.vhs";
+            var FilePath = @"C:\OScfg\FrontEndAppFiles\mameCmd.vhs";
             var cmd = string.Empty;
             WaitForFileWriteCompletion();//wait for file to close
             using (var read = File.OpenText(FilePath))//read the  cmd to be sent to mame from the FE game to be launched
             {
                 cmd = read.ReadToEnd();
-                Console.WriteLine("Command" + cmd);
                 read.Close();
             }
             return cmd;
@@ -103,7 +58,7 @@ namespace MameLauncher.Views
         void WaitForFileWriteCompletion()
         {
             StreamReader fileStream = null;
-            FileInfo fileInfo = new FileInfo(@"C:\FrontEndAppFiles\mameCmd.vhs");
+            FileInfo fileInfo = new FileInfo(@"C:\OScfg\FrontEndAppFiles\mameCmd.vhs");
             do
             {
                 try
@@ -124,22 +79,7 @@ namespace MameLauncher.Views
             } while (fileStream == null);
             fileStream.Close();
         }
-        private Process MameLaunchSetupAndRun()
-        {
-            //is mame open if move focuse off fe and keep checking if focus changew
-            var mameProc = Process.GetProcessesByName("mame").FirstOrDefault();
-            if (mameProc == null)//if mame is not already running start mame
-            {
-                Console.WriteLine("Starting Game");
-                ProcessStartInfo startInfo = new ProcessStartInfo("cmd");
-                startInfo.RedirectStandardInput = true;
-                startInfo.UseShellExecute = false;
-                var proc = Process.Start(startInfo);
-                proc.StandardInput.WriteLine(GetMameCmd());
-                return mameProc;
-            }
-            else { return mameProc; }
-        }
+      
         #endregion
     }
 }
